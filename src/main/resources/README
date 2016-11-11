@@ -1,0 +1,41 @@
+/*
+ * file name: README 
+ * copyright: Unis Cloud Information Technology
+ * Co., Ltd. Copyright 2016, All rights reserved description: none
+ * mofidy staff: Jiaqi Yang mofidy time: Oct 25, 2016
+ */
+运行环境 
+    JDK1.6.0
+    
+文件列表
+    osmw-1.0.tar.gz 包含6个文件
+        apidocs 包含了关于osmw相关的javadoc 文档
+        osmw-1.0.jar 是开发和运行的必须包含的包
+        osmw-1.0-javadoc.jar 包含osmw api doc 相关的jar包
+        lib 目录中包含osmw-1.0.jar 依赖的库
+        examples 包含一个示例项目，可以将其导入eclipse中
+        READEME  说明文档
+
+功能说明
+    osmw-1.0提供上传、下载和删除三个功能，在TestOSMW中展示了如何使用这三个功能，更使用方式请参考api doc文档
+    NOTE:
+        osmw-1.0开发目的在于在s3存储上兼容filenet接口形式，使用户以最小的代码改动来调用s3存储接口，但毕竟s3接口与filenet设计相差较大，
+        osmw暂不能是s3的行为与filenet表现得完全一致，故用户在使用时需要注意一下差别：
+        1.我们取消了filenet中的Folder类，请把代码中与Folder相关的代码注释掉
+        2.由于取消了Folder，为了实现逻辑上的文件系统，Document的id应为一个文件夹的完整路径，如root/text/example/，若用户指定的name不以/结尾，会自动加上一个/
+        3.Domain类、Subject类以及UserContext中除了createSubject以外的其他部分，在osmw-1.0中是空的实现，我们依然提供了这些类以兼容用户代码，但对其的操作实
+          际上不会有任何动作触发
+        4.对object store名，document名,文件名都应满足s3限制，具体限制如下：
+          ObjectStore
+            i. ObjectStore 名称的长度必须为至少 3 个字符，且不能超过 63 个字符。
+            ii. ObjectStore名称必须是一系列的一个或多个标签。相邻标签通过单个句点 (.) 分隔。
+            iii. ObjectStore名称可以包含小写字母、数字和连字符。每个标签都必须以小写字母或数字开头和结尾。
+            iv. ObjectStore名称不得采用 IP 地址格式（例如，192.168.5.4）。
+            v. 当通过 SSL 使用虚拟托管式ObjectStore时，SSL 通配符证书仅匹配不包含句点的ObjectStore。要解决此问题，请使用 HTTP或编写自己的证书验证逻辑。我们建议您不在Bucket名称中使用句点（“.”）
+          Document和文件：
+            i. 键的名称是一序列的Unicode字符，它的UTF-8编码长度最大为 1024 个字节。
+            ii.应采用/分隔的路径全名：如ucsm/bin/ucsm.exe
+            iii. 可以使用字符：字母数字字符 [0-9a-zA-Z]，特殊字符 /、!、-、_、.、*、’、( 和 )
+        5.在调用document.save()操作传入的RefreshMode只是为了兼容用户代码，实际没有任何影响，和传入null无区别.
+        6.上传时,调用save()后会关闭传入的各个输入流
+

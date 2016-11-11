@@ -1,0 +1,10 @@
+com.uniswdc.api.collection
+com.uniswdc.api.constants
+com.uniswdc.api.core
+com.uniswdc.api.exception
+com.uniswdc.api.property
+com.uniswdc.api.util
+com.uniswdc.apiimpl.collection
+com.uniswdc.apiimpl.core
+com.uniswdc.apiimpl.exception
+com.uniswdc.apiimpl.util
